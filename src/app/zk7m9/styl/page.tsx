@@ -15,6 +15,7 @@ const DEFAULT_SETTINGS = {
   tagline: 'Portal, który odczarowuje system kaucyjny w Polsce!',
   logoUrl: '',
   faviconUrl: '',
+  founderPhotoUrl: '',
   colors: {
     primary: '#00A8E8',
     secondary: '#0077B6',
@@ -45,8 +46,10 @@ export default function StylePage() {
   const [isSaving, setIsSaving] = useState(false)
   const [isUploadingLogo, setIsUploadingLogo] = useState(false)
   const [isUploadingFavicon, setIsUploadingFavicon] = useState(false)
+  const [isUploadingFounderPhoto, setIsUploadingFounderPhoto] = useState(false)
   const logoInputRef = useRef<HTMLInputElement>(null)
   const faviconInputRef = useRef<HTMLInputElement>(null)
+  const founderPhotoInputRef = useRef<HTMLInputElement>(null)
 
   const isDirty = JSON.stringify(settings) !== JSON.stringify(savedSettings)
 
@@ -90,8 +93,8 @@ export default function StylePage() {
     }
   }
 
-  const handleUpload = async (file: File, type: 'logo' | 'favicon') => {
-    const setUploading = type === 'logo' ? setIsUploadingLogo : setIsUploadingFavicon
+  const handleUpload = async (file: File, type: 'logo' | 'favicon' | 'founder') => {
+    const setUploading = type === 'logo' ? setIsUploadingLogo : type === 'favicon' ? setIsUploadingFavicon : setIsUploadingFounderPhoto
     setUploading(true)
     try {
       const formData = new FormData()
@@ -104,9 +107,9 @@ export default function StylePage() {
       // Store URL in settings so it gets saved with the rest
       setSettings(prev => ({
         ...prev,
-        ...(type === 'logo' ? { logoUrl: url } : { faviconUrl: url }),
+        ...(type === 'logo' ? { logoUrl: url } : type === 'favicon' ? { faviconUrl: url } : { founderPhotoUrl: url }),
       }))
-      toast.success(type === 'logo' ? 'Logo wgrane — kliknij Zapisz zmiany' : 'Favicon wgrany — kliknij Zapisz zmiany')
+      toast.success(type === 'logo' ? 'Logo wgrane — kliknij Zapisz zmiany' : type === 'favicon' ? 'Favicon wgrany — kliknij Zapisz zmiany' : 'Zdjęcie twórcy wgrane — kliknij Zapisz zmiany')
     } catch (err) {
       toast.error('Błąd przesyłania pliku')
       console.error('[v0] Upload error:', err)
@@ -294,6 +297,61 @@ export default function StylePage() {
                         onClick={() => setSettings(prev => ({ ...prev, faviconUrl: '' }))}
                       >
                         Usuń favicon
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Zdjęcie twórcy */}
+              <div className="space-y-2">
+                <Label>Zdjęcie twórcy (sekcja FounderBio)</Label>
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-full border-2 border-dashed border-border flex items-center justify-center bg-muted overflow-hidden shrink-0">
+                    {settings.founderPhotoUrl ? (
+                      <img src={settings.founderPhotoUrl} alt="Twórca" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                        <span className="text-primary-foreground font-bold text-sm">JD</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <input
+                      ref={founderPhotoInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        if (file) {
+                          handleUpload(file, 'founder')
+                          e.target.value = ''
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="gap-2"
+                      disabled={isUploadingFounderPhoto}
+                      onClick={(e) => { e.preventDefault(); founderPhotoInputRef.current?.click() }}
+                    >
+                      {isUploadingFounderPhoto
+                        ? <Loader2 className="h-4 w-4 animate-spin" />
+                        : <Upload className="h-4 w-4" />}
+                      {isUploadingFounderPhoto ? 'Przesyłam...' : 'Prześlij zdjęcie'}
+                    </Button>
+                    <p className="text-xs text-muted-foreground">
+                      Zalecany format: PNG lub JPG, kwadrat lub portret, min. 200×200px
+                    </p>
+                    {settings.founderPhotoUrl && (
+                      <button
+                        className="block text-xs text-destructive hover:underline"
+                        onClick={() => setSettings(prev => ({ ...prev, founderPhotoUrl: '' }))}
+                      >
+                        Usuń zdjęcie
                       </button>
                     )}
                   </div>

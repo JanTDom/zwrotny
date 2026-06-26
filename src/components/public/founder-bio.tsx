@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
-import { MapPin, ArrowRight, X } from 'lucide-react'
+import { MapPin, ArrowRight, X, User } from 'lucide-react'
 
 const ButelkomatyMap = dynamic(
   () => import('@/components/ButelkomatyMap').then(m => m.default ?? m),
@@ -18,8 +18,11 @@ const ButelkomatyMap = dynamic(
   }
 )
 
-export function FounderBio() {
+export function FounderBio({ photoUrl }: { photoUrl?: string }) {
   const [mapOpen, setMapOpen] = useState(false)
+  const [imgError, setImgError] = useState(false)
+
+  const effectivePhoto = (!imgError && photoUrl) ? photoUrl : null
 
   // Lock body scroll + close on Escape while modal is open
   useEffect(() => {
@@ -60,15 +63,23 @@ export function FounderBio() {
               }}
             />
             <div className="relative flex items-center gap-5 py-4 sm:py-5 px-4 sm:px-6">
-              {/* Photo */}
+              {/* Photo or initials fallback */}
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 rounded-full overflow-hidden ring-2 ring-primary/30 group-hover:ring-primary/70 transition-all duration-300 shadow-md">
-                <Image
-                  src="/jan-domaniewski.png"
-                  alt="Jan Domaniewski"
-                  fill
-                  className="object-cover object-top"
-                  sizes="80px"
-                />
+                {effectivePhoto ? (
+                  <Image
+                    src={effectivePhoto}
+                    alt="Jan Domaniewski"
+                    fill
+                    className="object-cover object-top"
+                    sizes="80px"
+                    onError={() => setImgError(true)}
+                    unoptimized
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-primary">
+                    <span className="text-primary-foreground font-bold text-2xl">JD</span>
+                  </div>
+                )}
               </div>
 
               {/* Text */}

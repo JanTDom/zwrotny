@@ -89,6 +89,9 @@ export default async function HomePage() {
   const heroMode = homepageSettings?.heroMode ?? 'full'
   const isCompact = heroMode === 'compact'
 
+  const siteStyle = settings?.site_style as { logoUrl?: string; faviconUrl?: string; founderPhotoUrl?: string } | undefined
+  const founderPhotoUrl = siteStyle?.founderPhotoUrl || ''
+
   const sectionComponents: Record<string, React.ReactNode> = {
     hero: (
       <HeroSection
@@ -121,7 +124,7 @@ export default async function HomePage() {
     youtube: <YouTubeSection key="youtube" videos={videos} />,
     guides: <GuidesSection key="guides" guides={guides} />,
     myths: <MythsSection key="myths" myths={myths} />,
-    founder: <FounderBio key="founder" />,
+    founder: <FounderBio key="founder" photoUrl={founderPhotoUrl} />,
     newsletter: <NewsletterSection key="newsletter" />,
   }
 
