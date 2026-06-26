@@ -74,13 +74,13 @@ export function FounderBio() {
               {/* Text */}
               <div className="min-w-0">
                 <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary mb-0.5">
-                  Tworca i Naczelny Portalu ZWROTNY.pl
+                  Twórca i Naczelny Portalu ZWROTNY.pl
                 </p>
                 <p className="text-lg sm:text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors duration-200">
                   Jan Domaniewski
                 </p>
                 <p className="text-sm sm:text-base text-muted-foreground mt-0.5 leading-snug">
-                  Dziennikarz i innowator, ekspert ds. komunikacji w przestrzeni publicznej i projektow spolecznych.
+                  Dziennikarz i innowator, ekspert ds. komunikacji w przestrzeni publicznej i projektów społecznych.
                 </p>
               </div>
             </div>
