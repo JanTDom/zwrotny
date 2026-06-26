@@ -1,0 +1,303 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ZWROTNY.pl Theme - Light mode with Blue + Orange accents from logo */
+:root {
+  /* Primary: Vibrant Cyan-Blue (from logo arrows) - #00A8E8 */
+  --primary: oklch(0.65 0.19 220);
+  --primary-foreground: oklch(1 0 0);
+  
+  /* Accent: Vibrant Orange (from logo coin) - #F5A623 */
+  --accent: oklch(0.75 0.16 65);
+  --accent-foreground: oklch(0.15 0 0);
+  
+  /* Background: Clean white */
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0.01 250);
+  
+  /* Card: Pure white with subtle shadow */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.01 250);
+  
+  /* Popover */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.01 250);
+  
+  /* Secondary: Light blue-gray */
+  --secondary: oklch(0.96 0.01 220);
+  --secondary-foreground: oklch(0.25 0.02 250);
+  
+  /* Muted: Light gray with blue tint */
+  --muted: oklch(0.95 0.005 220);
+  --muted-foreground: oklch(0.45 0.01 250);
+  
+  /* Destructive */
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  
+  /* Border & Input */
+  --border: oklch(0.90 0.01 220);
+  --input: oklch(0.96 0.005 220);
+  --ring: oklch(0.65 0.19 220);
+  
+  /* Charts */
+  --chart-1: oklch(0.65 0.19 220);
+  --chart-2: oklch(0.75 0.16 65);
+  --chart-3: oklch(0.55 0.15 250);
+  --chart-4: oklch(0.60 0.18 180);
+  --chart-5: oklch(0.70 0.12 330);
+  
+  --radius: 0.75rem;
+  
+  /* Sidebar - Admin (dark for contrast) */
+  --sidebar: oklch(0.12 0.02 250);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.65 0.19 220);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.20 0.02 250);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.25 0.02 250);
+  --sidebar-ring: oklch(0.65 0.19 220);
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-display: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/70;
+}
+
+/* Article content styles - Light mode */
+.prose-zwrotny {
+  @apply prose prose-lg max-w-none;
+  @apply prose-headings:text-foreground prose-headings:font-bold prose-headings:tracking-tight;
+  @apply prose-p:text-foreground/80 prose-p:leading-relaxed prose-p:text-justify;
+  @apply prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:font-medium;
+  @apply prose-strong:text-foreground prose-strong:font-semibold;
+  @apply prose-ul:text-foreground/80 prose-ol:text-foreground/80;
+  @apply prose-li:marker:text-primary;
+  @apply prose-blockquote:border-l-accent prose-blockquote:text-muted-foreground prose-blockquote:italic;
+  @apply prose-code:text-primary prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded;
+  @apply prose-pre:bg-secondary prose-pre:border prose-pre:border-border;
+  @apply prose-img:rounded-xl prose-img:shadow-lg;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text - Blue to Orange (logo colors) */
+.gradient-text {
+  background: linear-gradient(135deg, oklch(0.65 0.19 220), oklch(0.75 0.16 65));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradient text - Orange to Blue */
+.gradient-text-reverse {
+  background: linear-gradient(135deg, oklch(0.75 0.16 65), oklch(0.65 0.19 220));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card hover effect */
+.card-hover {
+  @apply transition-all duration-300;
+}
+
+.card-hover:hover {
+  @apply shadow-xl -translate-y-1;
+  box-shadow: 0 20px 40px oklch(0.65 0.19 220 / 0.15);
+}
+
+/* Blue glow effect */
+.glow-blue {
+  box-shadow: 0 0 30px oklch(0.65 0.19 220 / 0.3);
+}
+
+/* Orange glow effect */
+.glow-orange {
+  box-shadow: 0 0 30px oklch(0.75 0.16 65 / 0.3);
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(135deg, oklch(0.65 0.19 220), oklch(0.75 0.16 65));
+  z-index: -1;
+}
+
+/* Selection styling */
+::selection {
+  background: oklch(0.65 0.19 220 / 0.2);
+  color: oklch(0.15 0 0);
+}
+
+/* Hero gradient background */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.97 0.02 220) 0%,
+    oklch(0.99 0 0) 50%,
+    oklch(0.97 0.02 65) 100%
+  );
+}
+
+/* Section backgrounds */
+.section-blue {
+  background: linear-gradient(180deg, oklch(0.96 0.02 220) 0%, oklch(0.99 0 0) 100%);
+}
+
+.section-orange {
+  background: linear-gradient(180deg, oklch(0.97 0.02 65) 0%, oklch(0.99 0 0) 100%);
+}
+
+/* Heading readable on photo background - white glow halo */
+.heading-on-photo {
+  text-shadow:
+    0 0 8px rgba(255,255,255,1),
+    0 0 16px rgba(255,255,255,0.95),
+    0 0 32px rgba(255,255,255,0.85),
+    1px 1px 0 rgba(255,255,255,0.9),
+    -1px -1px 0 rgba(255,255,255,0.9),
+    1px -1px 0 rgba(255,255,255,0.9),
+    -1px 1px 0 rgba(255,255,255,0.9);
+}
+
+/* Badge readable on photo background */
+.badge-on-photo {
+  background: rgba(255,255,255,0.92) !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+}
