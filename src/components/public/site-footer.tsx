@@ -28,7 +28,7 @@ const socialLinks = [
   { icon: Twitter, href: 'https://twitter.com/zwrotny', label: 'Twitter' },
 ]
 
-export function SiteFooter() {
+export function SiteFooter({ logoUrl }: { logoUrl?: string }) {
   return (
     <footer className="relative overflow-hidden z-20">
       {/* Main Footer */}
@@ -39,7 +39,7 @@ export function SiteFooter() {
             <div className="col-span-2 md:col-span-4 lg:col-span-2">
               <Link href="/" className="inline-block mb-6 group">
                 <Image
-                  src="/logo-zwrotny.png"
+                  src={logoUrl || "/logo-zwrotny.png"}
                   alt="ZWROTNY.pl"
                   width={210}
                   height={140}

@@ -14,7 +14,7 @@ const navigation = [
   { name: 'O nas', href: '/o-nas' },
 ]
 
-export function SiteHeader() {
+export function SiteHeader({ logoUrl }: { logoUrl?: string }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -27,7 +27,7 @@ export function SiteHeader() {
             className="group flex items-center gap-3"
           >
             <Image
-              src="/logo-zwrotny.png"
+              src={logoUrl || "/logo-zwrotny.png"}
               alt="ZWROTNY.pl"
               width={192}
               height={128}

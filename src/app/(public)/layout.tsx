@@ -25,6 +25,11 @@ export default async function PublicLayout({
   const gaId = seoSettings?.googleAnalyticsId?.trim() || null
   const gtmId = seoSettings?.googleTagManagerId?.trim() || null
 
+  const siteStyle = settings?.site_style as {
+    logoUrl?: string
+  } | undefined
+  const logoUrl = siteStyle?.logoUrl || '/logo-zwrotny.png'
+
   const homepageSettings = settings?.homepageSettings as {
     backgroundVideo?: string
     videoEnabled?: boolean
@@ -83,11 +88,11 @@ export default async function PublicLayout({
 
       {/* Vertical frosted strip removed - each section has its own bg */}      <div className="flex min-h-screen flex-col relative" style={{ zIndex: 1 }}>
         <NewsTicker />
-        <SiteHeader />
+        <SiteHeader logoUrl={logoUrl} />
         <main className="flex-1">
           {children}
         </main>
-        <SiteFooter />
+        <SiteFooter logoUrl={logoUrl} />
       </div>
     </>
   )
